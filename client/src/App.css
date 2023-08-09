@@ -10,6 +10,9 @@ h5,
 h6 {
   font-family: 'Rubik Mono One', sans-serif;
 }
+span {
+  color: cyan;
+}
 
 .small {
   font-weight: 300;
