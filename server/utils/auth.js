@@ -10,28 +10,21 @@ module.exports = {
       code: 'UNAUTHENTICATED',
     },
   }),
-  authMiddleware: function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
+  verifyToken: (req, requireAuth = true) => {
+    const header = req.headers.authorization;
 
-    if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
+    if (header) {
+      const token = header.replace('Bearer ', '');
+      const decoded = jwt.verify(token, secret, { maxAge: expiration });
+      return decoded;
     }
-
-    if (!token) {
-      return req;
+    if (requireAuth) {
+      throw new Error('Login in to access resource');
     }
-
-    try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    } catch {
-      console.log('Invalid token');
-    }
-
-    return req;
+    return null
   },
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
+  signToken: function ({ email, username, password }) {
+    const payload = { email, username, password };
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

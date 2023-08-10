@@ -30,7 +30,13 @@ const startApolloServer = async () => {
   app.use(
     "/graphql",
     cors(),
-    expressMiddleware(server)
+    expressMiddleware(server, {
+      // Your async context function should async and
+      // return an object
+      context: async ({ req, res }) => ({
+        req,
+      }),
+    })
   );
 
   // if we're in production, serve client/dist as static assets

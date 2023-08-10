@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 
 import Auth from '../utils/auth';
 import { useQuery, gql } from '@apollo/client';
+import { GET_ME } from "../utils/mutations";
 
 const GET_USERS = gql`
   query Query {
@@ -18,8 +19,7 @@ const GET_USERS = gql`
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
-  const { loading, error, data } = useQuery(GET_USERS);
-  debugger
+  const { loading, error, data } = useQuery(GET_ME);
 
   return (
     <>
@@ -37,7 +37,7 @@ const AppNavbar = () => {
               {/* if user is logged in show saved books and logout */}
               {Auth.loggedIn() ? (
                 <>
-                <span>Hi, { !loading && data.users[0].username }</span>
+                <span>Hi, { !loading && data?.me?.username }</span>
                   <Nav.Link as={Link} to='/saved'>
                     See Your Books
                   </Nav.Link>
@@ -45,7 +45,7 @@ const AppNavbar = () => {
                 </>
               ) : (
                 <>
-                <span>Hi, { !loading && data.users[0].username }</span>
+                <span>Hi, Guest</span>
                 <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
                 </>
               )}
