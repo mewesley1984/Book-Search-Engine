@@ -1,5 +1,7 @@
 const { User } = require("../models");
 const { signToken, AuthenticationError, verifyToken } = require("../utils/auth");
+const { saveBook } = require('../controllers/user-controller')
+
 const resolvers = {
   Query: {
     me: async (root, args, context) => {
@@ -31,6 +33,18 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    saveBook: async (root, { book }, context) => {
+      const token = verifyToken(context.req)
+      // {username: 'mark', email: 'ff@ff.com'}
+      if (!token) {
+        throw AuthenticationError
+      }
+
+      const email = token.email
+      const updatedUser = saveBook(email, book)
+      return updatedUser
+
     }
   },
 };
