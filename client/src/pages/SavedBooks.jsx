@@ -49,14 +49,14 @@ const SavedBooks = () => {
       </div>
       <Container>
         <h2 className="pt-5">
-          {data?.savedBooks?.length
-            ? `Viewing ${data.savedBooks.length} saved ${
-                data.savedBooks.length === 1 ? "book" : "books"
+          {data?.me?.savedBooks?.length
+            ? `Viewing ${data?.me?.savedBooks.length} saved ${
+                data?.me?.savedBooks.length === 1 ? "book" : "books"
               }:`
             : "You have no saved books!"}
         </h2>
         <Row>
-          {data?.savedBooks?.map((book) => {
+          {data?.me?.savedBooks?.map((book) => {
             return (
               <Col md="4">
                 <Card key={book.bookId} border="dark">
@@ -75,7 +75,7 @@ const SavedBooks = () => {
                       className="btn-block btn-danger"
                       onClick={() => handleDeleteBook(book.bookId)}
                     >
-                      Delete this Book!
+                      Delete This Book
                     </Button>
                   </Card.Body>
                 </Card>

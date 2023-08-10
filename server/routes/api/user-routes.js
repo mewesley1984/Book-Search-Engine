@@ -8,7 +8,7 @@ const {
 } = require('../../controllers/user-controller');
 
 // put authMiddleware anywhere we need to send a token for verification of user
-router.route('/').post(createUser).put(saveBook);
+//router.route('/').post(createUser).put(saveBook);
 
 router.route('/login').post(login);
 

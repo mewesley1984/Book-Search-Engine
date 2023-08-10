@@ -23,6 +23,7 @@ input Book {
     image: String
     link: String
     title: String
+    description: String
 }
 type BookOutput {
     authors: [String]
@@ -30,12 +31,13 @@ type BookOutput {
     image: String
     link: String
     title: String
+    description: String
 }
 type Mutation{
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     deleteBook(bookID: String!): Boolean
-    saveBook(book: Book, token: String): String
+    saveBook(book: Book): User
 }
 
 `

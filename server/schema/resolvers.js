@@ -41,10 +41,12 @@ const resolvers = {
         throw AuthenticationError
       }
 
-      const email = token.email
+      const email = token.data.email
       const updatedUser = saveBook(email, book)
+      if(!updatedUser) {
+        throw new Error('Unable to save book')
+      }
       return updatedUser
-
     }
   },
 };

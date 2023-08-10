@@ -34,7 +34,6 @@ const SignupForm = () => {
     }
 
     try {
-      debugger;
       const response = await createUser({ variables: { ...userFormData } });
 
       if (!response.data) {
@@ -45,7 +44,6 @@ const SignupForm = () => {
         token,
         user: { username, email },
       } = response.data;
-      debugger;
       console.log(user);
       Auth.login(token);
     } catch (err) {
