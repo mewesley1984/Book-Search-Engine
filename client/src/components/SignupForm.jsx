@@ -42,7 +42,7 @@ const SignupForm = () => {
 
       const {
         token,
-        user: { username, email },
+        user,
       } = response.data;
       console.log(user);
       Auth.login(token);
